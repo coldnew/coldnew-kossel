@@ -13,3 +13,7 @@ please see =REAMDE.md= in stl file directory.
 ** ramps
 
 Ramps 1.4 + Arduino Holder for kossel mini 3D printer which is useing 20x20mm frame.
+
+** spool holder
+
+source: http://www.thingiverse.com/thing:454808
