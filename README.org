@@ -1,7 +1,7 @@
 
 * coldnew's kossel 3D printer files
 
-This is my kossel building stl files. (still under process)
+This is my kossel building info with stl files. (still under process)
 
 I decided to build an 20x20x frame kossel.
 
