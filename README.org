@@ -1,0 +1,15 @@
+
+* coldnew's kossel 3D printer files
+
+This is my kossel building stl files. (still under process)
+
+I decided to build an 20x20x frame kossel.
+
+* STL files
+
+All STL files list here. Not all designed by meself, for more info
+please see =REAMDE.md= in stl file directory.
+
+** ramps
+
+Ramps 1.4 + Arduino Holder for kossel mini 3D printer which is useing 20x20mm frame.
