@@ -13,11 +13,13 @@ fins=1;   // Yes use fins
 motor_frame_height = extrusion + 0.1;
 motor_z_offset = 15; // use 1.5 for 40mm height
 
+frame_bottom_height = 5;
+
 module frame_motor() {
     difference() {
         // No idler cones.
-//        vertex(motor_frame_height, idler_offset=0, idler_space=100, fin_w=fin_w, fin_d=fin_d, fins=fins, fn=200);
-    vertex(extrusion+0.1, idler_offset=0, idler_space=100, fin_w=5.2, fin_d=4, fins=1, fn=280);
+        //        vertex(motor_frame_height, idler_offset=0, idler_space=100, fin_w=fin_w, fin_d=fin_d, fins=fins, fn=200);
+        vertex(extrusion+0.1, idler_offset=0, idler_space=100, fin_w=5.2, fin_d=4, fins=1, fn=280);
 
         // // Motor cable paths.
         // for (mirror = [-1, 1]) scale([mirror, 1, 1]) {
@@ -43,5 +45,65 @@ module frame_motor() {
     }
 }
 
+module frame_bottom() {
+    fn = 180;
+    body1_cylinder_offset = 22;  //22
+    body2_cylinder_offset = -30; //-37
+    height = extrusion+0.1;
+    roundness = 6;
+    idler_offset=0;
+    idler_space=100;
 
-translate([0, 0, motor_frame_height/2]) frame_motor();
+    difference() {
+        union() {
+            intersection() {
+                translate([0, body1_cylinder_offset, 0]) cylinder(r=vertex_radius, h=frame_bottom_height, center=true, $fn=fn*2);
+                translate([0, body2_cylinder_offset, 0]) rotate([0, 0, 30]) cylinder(r=50, h=frame_bottom_height+1, center=true, $fn=6);
+            }
+
+            for (z = [-height/2 + extrusion/2 , height/2 - extrusion/2] ) {
+                for (a = [-1, 1]) {
+                    rotate([0, 0, 30*a]) translate([-(vertex_radius-body1_cylinder_offset)*a, 111, z]) {
+                        //% translate([0,5,0]) rotate([90, 0, 0]) extrusion_cutout(200, 0);
+                        translate([3*a,-67,0]) rotate([90, 0, 0]) cube([28, frame_bottom_height, 56], center=true);
+                    }
+                }
+            }
+
+            translate([0, 38, 0]) intersection() {
+                rotate([0, 0, -90]) cylinder(r=55, h=frame_bottom_height, center=true, $fn=3);
+                translate([0, 10, 0]) cube([100, 100, 1*frame_bottom_height], center=true);
+                translate([0, -10, 0]) rotate([0, 0, 30]) cylinder(r=55, h=height+1, center=true, $fn=6);
+            }
+
+        } // union
+
+        difference() {
+            translate([0, 58, 0]) minkowski() {
+                intersection() {
+                    rotate([0, 0, -90]) cylinder(r=55, h=height, center=true, $fn=3);
+                    translate([0, -31, 0])  cube([100, 15, 2*height], center=true);
+                }
+                cylinder(r=roundness, h=1, center=true);
+            }
+
+            // Idler support cones.
+            translate([0, 26+idler_offset-30, 0]) rotate([-90, 0, 0]) cylinder(r1=30, r2=2, h=30-idler_space/2, $fn=fn);
+            translate([0, 26+idler_offset+30, 0]) rotate([90, 0, 0])  cylinder(r1=30, r2=2, h=30-idler_space/2, $fn=fn);
+        }
+
+        translate([0, 58, 0]) minkowski() {
+            intersection() {
+                rotate([0, 0, -90]) cylinder(r=55, h=frame_bottom_height, center=true, $fn=3);
+                translate([0, 7, 0]) cube([100, 30, 2*frame_bottom_height], center=true);
+            }
+            cylinder(r=roundness, h=1, center=true);
+        }
+        translate([0,-2.5,0])extrusion_cutout(height+10, 0.15, fin_w, fin_d,corner_r=1);
+    }
+}
+
+union() {
+    translate([0, 0, motor_frame_height/2 + frame_bottom_height/2]) frame_motor();
+    color([1,0,0])translate([0, 2.5, 0]) frame_bottom();
+}

@@ -44,8 +44,8 @@ module vertex(height, idler_offset, idler_space, fin_w=5, fin_d, fins=0, fn=180)
     translate([0,2.5,0])union() {
 
         // Pads to improve print bed adhesion for slim ends.
-        translate([-37.5, 52.2, -height/2]) cylinder(r=8, h=0.4);
-        translate([37.5, 52.2, -height/2]) cylinder(r=8, h=0.4);
+        // translate([-37.5, 52.2, -height/2]) cylinder(r=8, h=0.4);
+        // translate([37.5, 52.2, -height/2]) cylinder(r=8, h=0.4);
 
         difference() {
             union() {
@@ -76,7 +76,7 @@ module vertex(height, idler_offset, idler_space, fin_w=5, fin_d, fins=0, fn=180)
                         translate([-22,-1.6,0])rotate([90,45,0]) cylinder(r=11/2*sqrt(2), h=5.5, $fn=4);
                         translate([22,-1.6,0])rotate([90,45,0]) cylinder(r=11/2*sqrt(2), h=5.5, $fn=4);
                     }
-                }
+                } // fins
                 intersection() {
                     translate([0, body1_cylinder_offset, 0]) cylinder(r=vertex_radius, h=height, center=true, $fn=fn*2);
                     translate([0, body2_cylinder_offset, 0]) rotate([0, 0, 30]) cylinder(r=50, h=height+1, center=true, $fn=6);
@@ -117,7 +117,7 @@ module vertex(height, idler_offset, idler_space, fin_w=5, fin_d, fins=0, fn=180)
                 for (a = [-1, 1]) {
                     rotate([0, 0, 30*a]) translate([-(vertex_radius-body1_cylinder_offset)*a, 111, z]) {
 
-                        % translate([0,5,0]) rotate([90, 0, 0]) extrusion_cutout(200, 0);
+//                        % translate([0,5,0]) rotate([90, 0, 0]) extrusion_cutout(200, 0);
 
                         // Screw sockets.
                         for (y = [-88, -44]) {
@@ -143,33 +143,5 @@ module vertex(height, idler_offset, idler_space, fin_w=5, fin_d, fins=0, fn=180)
     }
 }
 
-
-
 translate([0, 0, extrusion*2.5/2])
 vertex(extrusion*2.5, idler_offset=0, idler_space=10, fin_w=5, fin_d=4, fins=1, fn=20 );
-
-//translate([0, 0, 7.5]) vertex_cover(3);
-
-//%rotate(-30)cube([45,vertex_y_offset/2,25]);
-//%rotate(-30)cube([vertex_x_offset,45,35]);
-/*
-//%rotate(-30)cube([45,vertex_y_offset/2,25]);
-color("gray")rotate(-30)translate([(extrusion-thickness)/2,vertex_y_offset/2,0])
-difference(){
-cube([extrusion,240,extrusion]);
-translate([(extrusion-extrusion_channel_w)/2,-1,extrusion-6]) cube([extrusion_channel_w,241,extrusion]);
-}
-*/
-/*
-color("gray")
-rotate(-30)translate([(extrusion-thickness)/2,vertex_y_offset/2,0])
-translate([10,0,10+30])rotate([-90,0,0])
-difference(){
-import("./assembly/2020_1000mm.stl", convexity=10);
-translate([-12,-12,240])cube([24,24,(1000-240)+2]);
-}
-
-#translate([sin(30)*(vertex_y_offset+240),cos(30)*(vertex_y_offset+240),0])rotate(120)
-translate([0, 0, extrusion*2.5/2]) vertex(extrusion*2.5, idler_offset=0, idler_space=10, fin_w=5, fin_d=4, fn=20 );
-translate([sin(30)*(vertex_y_offset/2+240),cos(30)*(vertex_y_offset/2+240),-1])%rotate(-30)cube([45,vertex_y_offset/2,25]);
-*/
