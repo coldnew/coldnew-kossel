@@ -126,7 +126,7 @@ module frame_bottom() {
         // Screw sockets.
         for (z = [-height/2 + extrusion/2 , height/2 - extrusion/2] ) {
             for (a = [-1, 1]) {
-                rotate([0, 90, 30*a]) translate([-(vertex_radius-body1_cylinder_offset)+3, 111, z-18.5*a]) {
+                rotate([0, 90, 30*a]) translate([-(vertex_radius-body1_cylinder_offset)+6, 111, z-18.5*a]) {
                     for (y = [-88, -44]) {
                         translate([(extrusion/2-0.6), y, 0]) rotate([0, 90, 0]) screw_socket();
                     }
