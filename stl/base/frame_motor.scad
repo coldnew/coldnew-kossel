@@ -19,11 +19,6 @@ module frame_motor() {
 //        vertex(motor_frame_height, idler_offset=0, idler_space=100, fin_w=fin_w, fin_d=fin_d, fins=fins, fn=200);
     vertex(extrusion+0.1, idler_offset=0, idler_space=100, fin_w=5.2, fin_d=4, fins=1, fn=280);
 
-    // M3 bolt to support idler bearings.
-    translate([0, 45, 0]) rotate([90, 0, 0]) cylinder(r=m3_radius, h=55);
-//    translate([0, 45, 0]) rotate([90, 0, 0]) screw_socket();
-
-
         // // Motor cable paths.
         // for (mirror = [-1, 1]) scale([mirror, 1, 1]) {
         //     translate([-35, 45, 0]) rotate([0, 0, -30])

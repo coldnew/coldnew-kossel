@@ -113,6 +113,7 @@ module vertex(height, idler_offset, idler_space, fin_w=5, fin_d, fins=0, fn=180)
 
             for (z = [-height/2 + extrusion/2 , height/2 - extrusion/2] ) {
                 translate([0, -extrusion/2-extra_radius+extrusion_fin_d-2.5, z]) rotate([90, 0, 0]) screw_socket_cone();
+                mirror([0, 1, 0]) translate([0, -extrusion/2-extra_radius+extrusion_fin_d+ 2.5, z]) rotate([-270, 0, 0]) screw_socket_cone();
                 for (a = [-1, 1]) {
                     rotate([0, 0, 30*a]) translate([-(vertex_radius-body1_cylinder_offset)*a, 111, z]) {
                         // % rotate([90, 0, 0]) extrusion_cutout(200, 0);
