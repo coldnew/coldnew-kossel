@@ -135,9 +135,6 @@ module frame_bottom() {
             }
         }
 
-
-
-
     } // difference
 }
 
@@ -148,7 +145,9 @@ difference() {
     }
 
     translate([0, 0, motor_frame_height/2 + frame_bottom_height/2])
-    for (a = [-motor_z_offset, motor_z_offset]) {
+
+    //for (a = [-motor_z_offset, motor_z_offset]) {
+    for (a = [motor_z_offset, motor_z_offset]) {
         translate([0, motor_offset, a]) {
             // Motor shaft/pulley cutout.
             rotate([90, 0, 0]) cylinder(r=12, h=20, center=true);
