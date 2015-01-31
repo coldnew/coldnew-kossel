@@ -44,8 +44,8 @@ module vertex(height, idler_offset, idler_space, fin_w=5, fin_d, fins=0, fn=180)
     translate([0,2.5,0])union() {
 
         // Pads to improve print bed adhesion for slim ends.
-        // translate([-37.5, 52.2, -height/2]) cylinder(r=8, h=0.4);
-        // translate([37.5, 52.2, -height/2]) cylinder(r=8, h=0.4);
+        translate([-37.5, 52.2, -height/2]) cylinder(r=15, h=0.4);
+        translate([37.5, 52.2, -height/2]) cylinder(r=15, h=0.4);
 
         difference() {
             union() {
